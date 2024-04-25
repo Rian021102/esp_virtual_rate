@@ -6,6 +6,7 @@ from sklearn.ensemble import RandomForestRegressor
 from fastapi import FastAPI
 from pydantic import BaseModel
 import uvicorn
+import joblib
 
 # Define Pydantic model for the data received from Streamlit
 class InputData(BaseModel):
@@ -16,9 +17,6 @@ class InputData(BaseModel):
 app = FastAPI()
 
 # Load the trained model
-model_path = '/Users/rianrachmanto/pypro/project/ESP_Rate_Prediction/model/virmod.pkl'
-with open(model_path, 'rb') as file:
-    model = pickle.load(file)
 
 # Function to process data
 def process_data(data):
@@ -31,6 +29,8 @@ def predict(data: InputData):
     # Prepare the input data for prediction
     processed_data = process_data(pd.DataFrame(data.dict(), index=[0]))  # Convert data to DataFrame and preprocess
     input_data = processed_data.values.reshape(1, -1)  # Reshape for prediction
+
+    model= joblib.load('virmod.pkl')
 
     # Perform prediction using the loaded model
     prediction = model.predict(input_data)
