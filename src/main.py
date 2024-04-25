@@ -7,8 +7,8 @@ def main():
     dp = dataprocess(X_train,X_test)
     X_train = dp.process_train()
     X_test = dp.process_test()
-    rf_model_rs = random_forest_rs(X_train,X_test,y_train,y_test)
-    print('Random Forest model with Random Search:',rf_model_rs)
+    rf_random = random_forest_rs(X_train,X_test,y_train,y_test)
+    print('Random Forest model with Random Search:',rf_random)
 
 if __name__ == '__main__':
     main()
